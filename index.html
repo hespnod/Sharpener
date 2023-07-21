@@ -4,18 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- <script>
-        console.log("Hello world")
-    </script> -->
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>Add Users</title>
 </head>
 
 <body>
-    <p>hello coders</p>
-    <h1>Welcome to Sharpener family</h1>
-    <p>Welcome coders</p>
-    <h2 class="coderdost">Coders family</h2>
-    <h3 id="coders">My passion is coding</h3>
+    <header>
+        <h1>User Data Storing Form</h1>
+    </header>
+    <div class="container">
+        <form class="input-Form" id="inp-form">
+            <h1>Add Users</h1>
+            <div class="msg-form">
+                <div>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="text" name="email" id="email">
+                </div>
+                <div>
+                    <input type="submit" id="btn">
+                </div>
+            </div>
+        </form>
+    </div>
     <script src="script.js"></script>
 </body>
 
