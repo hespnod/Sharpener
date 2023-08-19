@@ -8,8 +8,14 @@ function saveToLocalStorage(event) {
         email,
         pno
     }
-    localStorage.setItem(obj.email, JSON.stringify(obj));
-    showNewUserOnScreen(obj);
+    // localStorage.setItem(obj.email, JSON.stringify(obj));
+
+    //Storing the data on cloud using axios on crudcrud.com
+    axios.post("https://crudcrud.com/api/b6d0dcba14364d2ca76dc50a58c8a168/bookapointment", obj)
+        .then((response) => showNewUserOnScreen(response.data))
+        .catch((err) => console.log(err));
+
+
     event.target.name.value = '';
     event.target.email.value = '';
     event.target.pno.value = '';
