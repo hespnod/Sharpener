@@ -1,3 +1,5 @@
+let isEdit = false;
+let usID;
 function saveToLocalStorage(event) {
     event.preventDefault();
     const name = event.target.name.value;
@@ -12,14 +14,29 @@ function saveToLocalStorage(event) {
     // localStorage.setItem(obj.email, JSON.stringify(obj));
 
     //Storing the data on cloud using axios on crudcrud.com
-    axios.post("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment", obj)
-        .then((response) => showNewUserOnScreen(response.data))
-        .catch((err) => console.log(err));
+
+    if (isEdit) {
+        axios.put(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${usID}`, obj)
+            .then((res) => {
+                showNewUserOnScreen(res.data)
+            })
+            .catch((error) => console.log(error));
+    } else {
+        axios.post("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment", obj)
+            .then((response) => showNewUserOnScreen(response.data))
+            .catch((err) => console.log(err));
+    }
+
+
+
+
+
 
 
     event.target.name.value = '';
     event.target.email.value = '';
     event.target.pno.value = '';
+    isEdit = false;
 }
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -42,7 +59,7 @@ function showNewUserOnScreen(user) {
     const parentNode = document.getElementById('ul-list');
     const childHtml = `<li id = ${user.email}> ${user.name} - ${user.email} - ${user.pno} 
     <button onClick=deleteUser('${user._id}','${user.email}') class="btn-del"> Delete </button> 
-    <button onClick=editUser('${user.email}','${newname[0]}','${user.pno}') class="btn-edit"> Edit</button>
+    <button onClick=editUser('${user.email}','${newname[0]}','${user.pno}','${user._id}') class="btn-edit"> Edit</button>
     </li> `
     parentNode.innerHTML = parentNode.innerHTML + childHtml;
 }
@@ -59,9 +76,11 @@ function removeUserFromScreen(email) {
         parentNode.removeChild(childDelete);
     }
 }
-function editUser(email, name, pno) {
+function editUser(email, name, pno, userID) {
     console.log(name);
     document.getElementById('email').value = email;
     document.getElementById('name').value = name;
     document.getElementById('pno').value = pno;
+    isEdit = true;
+    usID = userID;
 }
