@@ -12,7 +12,7 @@ function saveToLocalStorage(event) {
     // localStorage.setItem(obj.email, JSON.stringify(obj));
 
     //Storing the data on cloud using axios on crudcrud.com
-    axios.post("https://crudcrud.com/api/02171e96f2924ae0a2bd47352f6b456d/bookapointment", obj)
+    axios.post("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment", obj)
         .then((response) => showNewUserOnScreen(response.data))
         .catch((err) => console.log(err));
 
@@ -23,7 +23,7 @@ function saveToLocalStorage(event) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    axios.get("https://crudcrud.com/api/02171e96f2924ae0a2bd47352f6b456d/bookapointment")
+    axios.get("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment")
         .then((response) => {
             response.data.forEach(element => {
                 showNewUserOnScreen(element);
@@ -41,15 +41,15 @@ function showNewUserOnScreen(user) {
 
     const parentNode = document.getElementById('ul-list');
     const childHtml = `<li id = ${user.email}> ${user.name} - ${user.email} - ${user.pno} 
-    <button onClick=deleteUser('${user.email}') class="btn-del"> Delete </button> 
+    <button onClick=deleteUser('${user._id}','${user.email}') class="btn-del"> Delete </button> 
     <button onClick=editUser('${user.email}','${newname[0]}','${user.pno}') class="btn-edit"> Edit</button>
     </li> `
     parentNode.innerHTML = parentNode.innerHTML + childHtml;
 }
 
-function deleteUser(email) {
+function deleteUser(userID, email) {
     console.log(email);
-    localStorage.removeItem(email);
+    axios.delete(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${userID}`)
     removeUserFromScreen(email);
 }
 function removeUserFromScreen(email) {
