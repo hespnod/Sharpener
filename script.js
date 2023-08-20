@@ -17,8 +17,13 @@ function saveToLocalStorage(event) {
 
     if (isEdit) {
         axios.put(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${usID}`, obj)
-            .then((res) => {
-                showNewUserOnScreen(res.data)
+            .then(() => {
+                axios.get(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${usID}`)
+                    .then((response) => {
+                        showNewUserOnScreen(response.data);
+                    })
+                    .catch((err) => console.log(err));
+
             })
             .catch((error) => console.log(error));
     } else {
@@ -81,6 +86,7 @@ function editUser(email, name, pno, userID) {
     document.getElementById('email').value = email;
     document.getElementById('name').value = name;
     document.getElementById('pno').value = pno;
+    removeUserFromScreen(email);
     isEdit = true;
     usID = userID;
 }
