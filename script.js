@@ -16,18 +16,19 @@ function saveToLocalStorage(event) {
     //Storing the data on cloud using axios on crudcrud.com
 
     if (isEdit) {
-        axios.put(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${usID}`, obj)
+        axios.put(`https://crudcrud.com/api/00d8a256b45643a3b594e0ceb61e9bc7/bookapointment/${usID}`, obj)
             .then(() => {
-                axios.get(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${usID}`)
+                axios.get(`https://crudcrud.com/api/00d8a256b45643a3b594e0ceb61e9bc7/bookapointment/${usID}`)
                     .then((response) => {
                         showNewUserOnScreen(response.data);
+
                     })
                     .catch((err) => console.log(err));
 
             })
             .catch((error) => console.log(error));
     } else {
-        axios.post("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment", obj)
+        axios.post("https://crudcrud.com/api/00d8a256b45643a3b594e0ceb61e9bc7/bookapointment", obj)
             .then((response) => showNewUserOnScreen(response.data))
             .catch((err) => console.log(err));
     }
@@ -45,7 +46,7 @@ function saveToLocalStorage(event) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    axios.get("https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment")
+    axios.get("https://crudcrud.com/api/00d8a256b45643a3b594e0ceb61e9bc7/bookapointment")
         .then((response) => {
             response.data.forEach(element => {
                 showNewUserOnScreen(element);
@@ -70,8 +71,7 @@ function showNewUserOnScreen(user) {
 }
 
 function deleteUser(userID, email) {
-    console.log(email);
-    axios.delete(`https://crudcrud.com/api/c26ff4ee7c814cb389a5c8bd1a3f9bcc/bookapointment/${userID}`)
+    axios.delete(`https://crudcrud.com/api/00d8a256b45643a3b594e0ceb61e9bc7/bookapointment/${userID}`)
     removeUserFromScreen(email);
 }
 function removeUserFromScreen(email) {
@@ -82,7 +82,6 @@ function removeUserFromScreen(email) {
     }
 }
 function editUser(email, name, pno, userID) {
-    console.log(name);
     document.getElementById('email').value = email;
     document.getElementById('name').value = name;
     document.getElementById('pno').value = pno;
